@@ -20,10 +20,10 @@ server.post("/upload/", async (req: any, res) => {
     }
 });
 
-server.listen({ port: 8080 }, (err, address) => {
+server.listen({ port: 8000 }, (err, address) => {
     if (err) {
         console.error(err);
         process.exit(1);
     }
-    console.log(`Server listening at ${address}`);
+    console.log(`Server listening at ${address} 🚀`);
 });
