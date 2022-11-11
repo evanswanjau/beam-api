@@ -1,5 +1,6 @@
 import fastify from "fastify";
-import { uploadViaUrl } from "./helpers/images";
+import { colorizeAILab } from "./helpers/colorize";
+import { uploadUrl, uploadBase64 } from "./helpers/imagekit";
 
 const server = fastify();
 
@@ -9,9 +10,13 @@ server.get("/", async () => {
 
 server.post("/upload/", async (req: any, res) => {
     try {
-        res.send(await uploadViaUrl(req.body.url));
-    } catch (error) {
-        res.send(error);
+        const old = await uploadUrl(req.body.url);
+        const colorizedBase64 = await colorizeAILab(old.url);
+        const colorized = await uploadBase64(colorizedBase64.data.image);
+
+        res.send({ old: old.url, colorized: colorized.url });
+    } catch (error: any) {
+        res.status(error.response.status).send(error.response.data);
     }
 });
 
