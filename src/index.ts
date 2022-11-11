@@ -20,7 +20,8 @@ server.post("/upload/", async (req: any, res) => {
     }
 });
 
-server.listen({ port: 8000 }, (err, address) => {
+const port = parseInt(process.env.PORT || "5000");
+server.listen({ port: port }, (err, address) => {
     if (err) {
         console.error(err);
         process.exit(1);
