@@ -1,8 +1,24 @@
 import fastify from "fastify";
+import cors from "@fastify/cors";
 import { colorizeAILab } from "./helpers/colorize";
 import { uploadUrl, uploadBase64, secureEndpoint } from "./helpers/imagekit";
 
 const server = fastify();
+
+server.register(cors, {
+    hook: "preHandler",
+    delegator: (req, callback) => {
+        const corsOptions = {
+            origin: true,
+        };
+
+        if (/^localhost$/m.test(req.headers.origin || "")) {
+            corsOptions.origin = false;
+        }
+
+        callback(null, corsOptions);
+    },
+});
 
 server.get("/", async () => {
     return { hello: "world" };
