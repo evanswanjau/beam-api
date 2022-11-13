@@ -25,7 +25,6 @@ export const uploadUrl = (url: string) => {
     });
 };
 
-
 /**
  * Function that uploads base64 image to imagekit server
  * via base64 data
@@ -39,4 +38,13 @@ export const uploadBase64 = (base64Img: any) => {
         folder: "colorized",
         fileName: fileName + ".jpg",
     });
+};
+
+/**
+ * This function provides authentication for frontend
+ * uploads
+ * @returns credentials
+ */
+export const secureEndpoint = () => {
+    return imagekit.getAuthenticationParameters();
 };
