@@ -24,15 +24,15 @@ server.get("/", async () => {
     return { hello: "world" };
 });
 
-server.post("/upload/", async (req: any, res) => {
+server.post("/upload/", (req: any, res) => {
     try {
-        const colorizedBase64 = await colorizeAILab(req.body.url);
-        const colorized = await uploadBase64(
-            colorizedBase64.data.image,
-            req.body.fileName
-        );
-
-        res.send({ colorized: colorized.url });
+        colorizeAILab(req.body.url)
+            .then((response) => {
+                return uploadBase64(response.data.image, req.body.fileName);
+            })
+            .then((data) => {
+                res.send({ colorized: data.url });
+            });
     } catch (error: any) {
         res.send(error.response.data);
     }
