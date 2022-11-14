@@ -26,11 +26,13 @@ server.get("/", async () => {
 
 server.post("/upload/", async (req: any, res) => {
     try {
-        const old = await uploadUrl(req.body.url);
         const colorizedBase64 = await colorizeAILab(req.body.url);
-        const colorized = await uploadBase64(colorizedBase64.data.image);
+        const colorized = await uploadBase64(
+            colorizedBase64.data.image,
+            req.body.fileName
+        );
 
-        res.send({ old: old.url, colorized: colorized.url });
+        res.send({ colorized: colorized.url });
     } catch (error: any) {
         res.status(error.response.status).send(error.response.data);
     }
