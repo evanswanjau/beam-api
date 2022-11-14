@@ -31,12 +31,11 @@ export const uploadUrl = (url: string) => {
  * @param url
  * @returns upload response
  */
-export const uploadBase64 = (base64Img: any) => {
-    const fileName = generateRandomString("letters", 10).toLocaleLowerCase();
+export const uploadBase64 = (base64Img: any, fileName: string) => {
     return imagekit.upload({
         file: base64Img,
         folder: "colorized",
-        fileName: fileName + ".jpg",
+        fileName: fileName,
     });
 };
 
