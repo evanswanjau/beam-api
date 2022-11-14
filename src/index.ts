@@ -34,7 +34,7 @@ server.post("/upload/", async (req: any, res) => {
 
         res.send({ colorized: colorized.url });
     } catch (error: any) {
-        res.status(error.response.status).send(error.response.data);
+        res.send(error.response.data);
     }
 });
 
