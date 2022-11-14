@@ -32,6 +32,9 @@ server.post("/upload/", (req: any, res) => {
             })
             .then((data) => {
                 res.send({ colorized: data.url });
+            })
+            .catch((error) => {
+                res.send(error.message);
             });
     } catch (error: any) {
         res.send(error.response.data);
